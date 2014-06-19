@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+    <b>Successfully Sent the Data Set To Quandl !!!</b>
+   <p>
+    <b>Data Set URL on Quandl :</b>
+    <%=link_to "Data URL", "http://www.quandl.com/#{@source_code}/#{@dataset_code}",:target => "_blank" %>
+   </p>
+
+<%= link_to 'Edit', edit_wiki_form_path(@wiki_form) %> |
+<%= link_to 'Back', wiki_forms_path %>

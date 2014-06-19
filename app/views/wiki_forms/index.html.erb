@@ -1,0 +1,60 @@
+<h1>Listing wiki_forms</h1>
+<%= link_to 'New Wiki form', new_wiki_form_path , :class => "btn btn-success"%>
+
+<table class="table table-striped">
+  <tr>
+    <th>Url</th>
+    <th>Parser name</th>
+    <th>Action</th>
+    <th>Delimiter</th>
+    <th>Criteria</th>
+    <th>Which Table</th>
+    <th>Which Sheet</th>
+    <th>From Row</th>
+    <th>To Row</th>
+    <th>From Column</th>
+    <th>To Column</th>
+    <th>strip_row</th>
+    <th>strip_column</th>
+    <th>transpose</th>
+    <th>select_row</th>
+    <th>select_column</th>
+    <th>strip_until</th>
+    <th>match</th>
+    <th>strip_from</th>
+    <th>move_row</th>
+    <th>move_column</th>
+
+  </tr>
+
+<% @wiki_forms.each do |wiki_form| %>
+  <tr>
+    <td><%= wiki_form.url %></td>
+    <td><%= wiki_form.parser_name %></td>
+    <td><%= wiki_form.action %></td>
+    <td><%= wiki_form.delimiter %></td>
+    <td><%= wiki_form.criteria %></td>
+    <td><%= wiki_form.which_table %></td>
+    <td><%= wiki_form.which_sheet %></td>
+    <td><%= wiki_form.from_row %></td>
+    <td><%= wiki_form.to_row %></td>
+    <td><%= wiki_form.from_col %></td>
+    <td><%= wiki_form.to_col %></td>
+    <td><%= wiki_form.strip_row %></td>
+    <td><%= wiki_form.strip_column %></td>
+    <td><%= wiki_form.transpose %></td>
+    <td><%= wiki_form.select_row %></td>
+    <td><%= wiki_form.select_column %></td>
+    <td><%= wiki_form.strip_until %></td>
+    <td><%= wiki_form.match %></td>
+    <td><%= wiki_form.strip_from %></td>
+    <td><%= wiki_form.move_row %></td>
+    <td><%= wiki_form.move_column %></td>
+
+
+    <td><%= link_to 'Show', wiki_form %></td>
+    <td><%= link_to 'Edit', edit_wiki_form_path(wiki_form) %></td>
+    <td><%= link_to 'Destroy', wiki_form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

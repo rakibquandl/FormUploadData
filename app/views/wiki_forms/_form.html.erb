@@ -1,0 +1,167 @@
+<%= form_for @wiki_form , :remote => true, :validate => true do  |f| %>
+  <% if @wiki_form.errors.any? %>
+        <div id="error_explanation" xmlns="http://www.w3.org/1999/html">
+      <h2><%= pluralize(@wiki_form.errors.count, "Error") %>  in Inputs:</h2>
+
+      <ul>
+      <% @wiki_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label 'Import URL' %>
+    <%= f.text_field :url %>
+    <%= f.label 'Authentication Token' %>
+    <%= f.text_field :token %>
+
+    <%= f.label 'Source Code' %>
+    <%= f.text_field :source_code %>
+
+  </div>
+   <div>
+     <%= f.label 'Source Name' %>
+     <%= f.text_field :source_name %>
+   </div>
+  <div>
+    <%= f.label 'Dataset Code' %>
+    <%= f.text_field :dataset_code %>
+  </div>
+  <div>
+    <%= f.label 'Dataset Name' %>
+    <%= f.text_field :dataset_name %>
+  </div>
+  <div>
+    <%= f.label 'Dataset Description' %>
+    <%= f.text_area :dataset_description , :size => "30x10" %>
+  </div>
+  <div>
+    <%= f.label 'Columns Names for Data Set' %>
+    <%= f.text_area :col_spec , :size => "30x10" %>
+  </div>
+  <div>
+    <%= f.label 'Parser Name' %><br />
+    <%= f.select :parser_name, [['',''],['csv','csv'],['html','html'],['cansim','cansim'],['xls','xls'],['xlsx','xlsx']] %>
+  </div>
+
+    <div id="delimiter">
+      <%= f.label 'Delimiter (for csv parser) :' %>
+      <%= f.select :delimiter, [['',''],['comma','comma'],['tab','tab'],['semicolon','semicolon']] %>
+    </div>
+      <div id="criteria">
+        <%= f.label 'Criteria (for html parser) :' %>
+        <%= f.select :criteria, [['',''],['table','table']] %>
+      </div>
+      <div id="which_table">
+        <%= f.label 'Which Table (for html parser) :' %>
+        <%= f.select :which_table, [['',''],['0','0'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5']] %>
+      </div>
+    <div id="which_sheet">
+      <%= f.label 'Which Sheet (for xls/xlsx parser) :' %>
+      <%= f.select :which_sheet, [['',''],['0','0'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5']] %>
+    </div>
+
+    <div class="field">
+    <%= f.label 'Parser Action' %><br />
+    <% @action_array = ['strip_row', 'strip_column', 'transpose', 'select_row', 'select_column', 'strip_until' ] %>
+    <% @action_array.each do |a| %>
+       <div class="checkbox">
+        <% if a == "strip_row" %>
+             <%= check_box_tag "strip_row", a %>
+        <% elsif a == "strip_column" %>
+             <%= check_box_tag "strip_column", a %>
+         <% elsif a == "transpose" %>
+             <%= check_box_tag "transpose", a %>
+         <% elsif a == "select_row" %>
+             <%= check_box_tag "select_row", a %>
+         <% elsif a == "select_column" %>
+             <%= check_box_tag "select_column", a %>
+         <% elsif a == "strip_until" %>
+             <%= check_box_tag "strip_until", a %>
+         <% elsif a == "move_row" %>
+             <%= check_box_tag "move_row", a %>
+         <% elsif a == "move_column" %>
+             <%= check_box_tag "move_column", a %>
+        <% end %>
+        <%= a %>
+       </div>
+    <% end  %>
+  </div>
+
+  <div id="from_row">
+    <%= f.label 'strip_from_row (1 number) or Multiple Rows (comma seperated)' %>
+    <%= f.text_field :from_row %>
+  </div>
+    <div id="to_row">
+      <%= f.label 'strip_to_row :' %>
+      <%= f.text_field :to_row %>
+    </div>
+    <div id="select_from_row">
+      <%= f.label 'select_from_row (1 number) or Multiple Rows (comma seperated)' %>
+      <%= f.text_field :select_from_row %>
+    </div>
+    <div id="select_to_row">
+      <%= f.label 'select_to_row :' %>
+      <%= f.text_field :select_to_row %>
+    </div>
+    <div id="move_from_row">
+      <%= f.label 'move_from_row' %>
+      <%= f.text_field :move_from_row %>
+    </div>
+    <div id="move_to_row">
+      <%= f.label 'move_to_row :' %>
+      <%= f.text_field :move_to_row %>
+    </div>
+    <div id="from_col">
+      <%= f.label 'strip_from_column : (1 number) or Multiple Columns (comma seperated)' %>
+      <%= f.text_field :from_col %>
+    </div>
+    <div id="to_col">
+      <%= f.label 'strip_to_column :' %>
+      <%= f.text_field :to_col %>
+    </div>
+    <div id="select_from_col">
+      <%= f.label 'select_from_col (1 number) or Multiple Rows (comma seperated)' %>
+      <%= f.text_field :select_from_col %>
+    </div>
+    <div id="select_to_col">
+      <%= f.label 'select_to_col :' %>
+      <%= f.text_field :select_to_col %>
+    </div>
+    <div id="match">
+      <%= f.label 'match :' %>
+      <%= f.text_field :match %>
+    </div>
+    <div id="strip_from">
+      <%= f.label 'strip_from (top/bottom) :' %>
+      <%= f.text_field :strip_from %>
+    </div>
+
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#pane1" data-toggle="tab">Raw Data</a></li>
+        <li><a href="#pane2" data-toggle="tab">Preview Mode</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="pane1" class="tab-pane active">
+          <div id="content-type" style="float: right; width: 800px; height: 500px; text-align: center;">
+          </div>
+          <iframe id="import_url_iframe">
+          </iframe>
+
+        </div>
+        <div id="pane2" class="tab-pane">
+          <div id="preview_tab">
+            <%= f.submit "Preview DataSet" , :name => "preview_dataset", :class => "btn btn-info" ,:id => "preview_button"  %>
+            <%= f.submit "Send Data Set" , :class => "btn btn-success" ,:id => "send_button" %>
+            <div id="preview_tab2">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>

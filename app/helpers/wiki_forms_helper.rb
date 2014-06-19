@@ -1,0 +1,2 @@
+module WikiFormsHelper
+end

@@ -1,0 +1,38 @@
+<%
+require 'rubygems'
+require 'open-uri'
+require 'json'
+require 'nokogiri'
+
+#h = Hash.new{|h,k| h[k] = []}
+@host_hash = {}
+
+(1..40).each do |i|
+
+  url = "http://www.quandl.com/api/v1/sources.json?page=#{i}&auth_token=uzTCmFhg24dZzCSNyATo"
+
+  # puts JSON.parse(doc)
+  # puts "page : #{i}"
+
+   begin
+     doc = Nokogiri::HTML (open(url))
+     JSON.parse(doc)['docs'].each do |line|
+      a = []
+       #puts line
+       #print "code = #{line['code']} , "
+       #print "name = #{line['name']} , "
+       #puts "host = #{line['host']}"
+
+       a << line['code']
+       a << line['name']
+       @host_hash[line['host'].gsub('http://','').to_s] = a   unless line['code'].start_with?'USER_'
+      end
+   rescue Exception => e
+     #puts e
+   end
+
+end
+
+  #puts @host_hash
+%>
+var host_hash = <%= @host_hash.to_json %>;

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  url: MyString
+  parser_name: MyString
+  action: MyString
+
+two:
+  url: MyString
+  parser_name: MyString
+  action: MyString
